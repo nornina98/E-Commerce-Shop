@@ -7,11 +7,9 @@ import {
   GoogleAuthProvider,
 } from "firebase/auth";
 
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
 
 // Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyBHPBRCqmeradwKjRBubSGXJbA6KE19-uo",
   authDomain: "e-commerce-shop-db-e99e7.firebaseapp.com",
@@ -31,4 +29,34 @@ provider.setCustomParameters({
 });
 
 export const auth = getAuth();
+console.log(auth);
 export const signInWithGooglePopup = () => signInWithPopup(auth, provider);
+
+// config the database firebase and do checklist either true or false
+export const db = getFirestore();
+
+export const createUserDocumentFromAuth = async (userAuth) => {
+  const userDocRef = doc(db, "users", userAuth.uid);
+  console.log(userDocRef);
+
+  const userSnapshot = await getDoc(userDocRef);
+  console.log(userSnapshot);
+  console.log(userSnapshot.exists());
+
+  // add user if the users does not exist in firebase database
+  if (!userSnapshot.exists()) {
+    const { email, displayName } = userAuth;
+    const createAt = new Date();
+
+    try {
+      await setDoc(userDocRef, {
+        email,
+        displayName,
+        createAt,
+      });
+    } catch (error) {
+      console.log("error creating the user", error.massage);
+    }
+  }
+  return userDocRef;
+};
