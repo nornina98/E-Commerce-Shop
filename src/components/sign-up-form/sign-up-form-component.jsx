@@ -1,7 +1,12 @@
 import { useState } from "react";
 
+import {
+  createAuthUserWithEmailAndPassword,
+  createUserDocumentFromAuth,
+} from "../../utils/firebase-utils";
+
 // set as default value which is create empty object for initial data
-const defaultFormField = {
+const defaultFormFields = {
   displayName: "",
   email: "",
   password: "",
@@ -10,23 +15,52 @@ const defaultFormField = {
 
 const SignUpForm = () => {
   // config formfield and setform by desctructuring base object
-  const [formField, setFormField] = useState(defaultFormField);
+  const [formField, setFormField] = useState(defaultFormFields);
   const { displayName, email, password, confirmPassword } = formField;
 
-  console.log(formField);
+  // function to handle submit data from form button
+
+  const resetFormFields = () => {
+    setFormField(defaultFormFields);
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    if (password !== confirmPassword) {
+      alert("passwords do not match");
+      return;
+    }
+
+    try {
+      const { user } = await createAuthUserWithEmailAndPassword(
+        email,
+        password
+      );
+
+      await createUserDocumentFromAuth(user, { displayName });
+      resetFormFields();
+    } catch (error) {
+      if (error.code === "auth/email-already-in-use") {
+        alert("Cannot create user, email already in use");
+      } else {
+        console.log("user creation encountered an error", error);
+      }
+    }
+  };
 
   // function to trigger changing input
   const handleChange = (event) => {
     const { name, value } = event.target;
 
-    // set formfield into new value which target name properties in form which default object is "" above and input new value by triggering onChange function.
+    // set formfield into new value which target name properties in form which default object is "" and input new value by triggering onChange function.
     setFormField({ ...formField, [name]: value });
   };
 
   return (
     <div>
       <h1>SIGN UP FORM</h1>
-      <form onSubmit={() => {}}>
+      <form onSubmit={handleSubmit}>
         <label>DisplayName</label>
         <input
           type="text"
@@ -62,8 +96,8 @@ const SignUpForm = () => {
           name="confirmPassword"
           value={confirmPassword}
         />
+        <button type="submit">Sign Up</button>
       </form>
-      <button type="submit">Sign Up</button>
     </div>
   );
 };

@@ -1,6 +1,11 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import {
+  getAuth,
+  signInWithPopup,
+  GoogleAuthProvider,
+  createUserWithEmailAndPassword,
+} from "firebase/auth";
 
 import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
 
@@ -25,19 +30,18 @@ provider.setCustomParameters({
 });
 
 export const auth = getAuth();
-console.log(auth);
 export const signInWithGooglePopup = () => signInWithPopup(auth, provider);
 
 // config the database firebase and do checklist either true or false
 export const db = getFirestore();
 
-export const createUserDocumentFromAuth = async (userAuth) => {
+export const createUserDocumentFromAuth = async (
+  userAuth,
+  additionalInformation = {}
+) => {
+  if (!userAuth) return;
   const userDocRef = doc(db, "users", userAuth.uid);
-  console.log(userDocRef);
-
   const userSnapshot = await getDoc(userDocRef);
-  console.log(userSnapshot);
-  console.log(userSnapshot.exists());
 
   // add user if the users does not exist in firebase database
   if (!userSnapshot.exists()) {
@@ -49,10 +53,17 @@ export const createUserDocumentFromAuth = async (userAuth) => {
         email,
         displayName,
         createAt,
+        ...additionalInformation,
       });
     } catch (error) {
       console.log("error creating the user", error.massage);
     }
   }
   return userDocRef;
+};
+
+export const createAuthUserWithEmailAndPassword = async (email, password) => {
+  // if email is not true or password not true so exit function.
+  if (!email || !password) return;
+  return await createUserWithEmailAndPassword(auth, email, password);
 };
