@@ -37,12 +37,31 @@ const SignInForm = () => {
     event.preventDefault();
     try {
       const response = await signInAuthWithEmailAndPassword(email, password);
-      console.log(response, "ikram access token: xx-xx--");
+      console.log(response);
       resetFormFields();
     } catch (error) {
-      console.log(error);
+      switch (error.code) {
+        case "auth/wrong-password":
+          alert("auth/wrong-password");
+          break;
+
+        case "auth/user-not-found":
+          alert("Sorry, there is no such user found");
+          break;
+
+        default:
+          console.log(error);
+      }
     }
   };
+
+  /*
+      if (error.code === "auth/wrong-password") {
+        alert("your password or email is incorrect");
+      } else if (error.code === "auth/user-not-found") {
+        alert("Sorry,there is no such user found");
+      }
+  */
 
   // function to trigger changing FormInput
   const changeHandler = (event) => {
@@ -55,7 +74,7 @@ const SignInForm = () => {
   return (
     <div className="sign-up-cointainer">
       <h2>Don't have an account?</h2>
-      <span>Sign In with your email and password</span>
+      <span>Sign in with your email and password</span>
       <form onSubmit={handleSubmit}>
         <FormInput
           label="Email"
@@ -76,7 +95,7 @@ const SignInForm = () => {
         />
         <div className="buttons-container">
           <Button type="submit">Sign In</Button>
-          <Button buttonType="google" onClick={SignInWithGoogle}>
+          <Button type="button" buttonType="google" onClick={SignInWithGoogle}>
             Google Sign In
           </Button>
         </div>
