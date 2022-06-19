@@ -1,5 +1,7 @@
 import { Outlet, Link } from "react-router-dom";
-import { Fragment } from "react";
+import { Fragment, useContext } from "react";
+
+import { UserContext } from "../../../contexts/context-user";
 
 // Import CrownLogo in Assets
 import { ReactComponent as CrownLogo } from "../../../assets/crown.svg";
@@ -8,6 +10,8 @@ import { ReactComponent as CrownLogo } from "../../../assets/crown.svg";
 import "./navigation-styles.scss";
 
 const Navigation = () => {
+  const { currentUser } = useContext(UserContext);
+  console.log(currentUser);
   // use fragment instead of wrapping div as cointaner
   return (
     <Fragment>
