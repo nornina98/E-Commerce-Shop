@@ -11,12 +11,7 @@ import { ReactComponent as CrownLogo } from "../../../assets/crown.svg";
 import "./navigation-styles.scss";
 
 const Navigation = () => {
-  const { currentUser, setCurrentUser } = useContext(UserContext);
-
-  const SignOutHandler = async () => {
-    await SignOutUser();
-    setCurrentUser(null);
-  };
+  const { currentUser } = useContext(UserContext);
 
   // use fragment instead of wrapping div as cointaner
   return (
@@ -30,7 +25,7 @@ const Navigation = () => {
             Shop
           </Link>
           {currentUser ? (
-            <span className="nav-link" onClick={SignOutHandler}>
+            <span className="nav-link" onClick={SignOutUser}>
               Sign Out
             </span>
           ) : (
