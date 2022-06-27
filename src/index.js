@@ -2,6 +2,7 @@ import React from "react";
 import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 import { UserProvider } from "./contexts/context-user";
+import { ProductProvider } from "./contexts/context-product";
 
 import "./index.scss";
 import { render } from "@testing-library/react";
@@ -12,7 +13,9 @@ render(
   <React.StrictMode>
     <BrowserRouter>
       <UserProvider>
-        <App />
+        <ProductProvider>
+          <App />
+        </ProductProvider>
       </UserProvider>
     </BrowserRouter>
   </React.StrictMode>,
