@@ -3,6 +3,7 @@ import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 import { UserProvider } from "./contexts/context-user";
 import { ProductProvider } from "./contexts/context-product";
+import { CartProvider } from "./contexts/context-cart";
 
 import "./index.scss";
 import { render } from "@testing-library/react";
@@ -14,7 +15,9 @@ render(
     <BrowserRouter>
       <UserProvider>
         <ProductProvider>
-          <App />
+          <CartProvider>
+            <App />
+          </CartProvider>
         </ProductProvider>
       </UserProvider>
     </BrowserRouter>
