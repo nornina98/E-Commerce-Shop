@@ -72,8 +72,8 @@ const SignInForm = () => {
 
   return (
     <div className="sign-up-cointainer">
-      <h2>Don't have an account?</h2>
-      <span>Sign in with your email and password</span>
+      <h2>Sign In To Access</h2>
+      <span>Sign in your account with email or Google</span>
       <form onSubmit={handleSubmit}>
         <FormInput
           label="Email"
@@ -104,3 +104,5 @@ const SignInForm = () => {
 };
 
 export default SignInForm;
+
+// j>7rXg&Z
