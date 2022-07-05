@@ -8,6 +8,8 @@ import {
   signInWithEmailAndPassword,
   signOut,
   onAuthStateChanged,
+  collection,
+  writeBatch,
 } from "firebase/auth";
 
 import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
@@ -37,6 +39,14 @@ export const signInWithGooglePopup = () => signInWithPopup(auth, provider);
 
 // config the database firebase and do checklist either true or false
 export const db = getFirestore();
+
+export const addCollectionAndDocuments = async (
+  collectionKey,
+  objectsToAdd
+) => {
+  const batch = writeBatch(db);
+  const collectionRef = collection(db, collectionKey);
+};
 
 export const createUserDocumentFromAuth = async (
   userAuth,
