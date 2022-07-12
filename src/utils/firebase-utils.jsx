@@ -1,5 +1,6 @@
-// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
+
+//firebase auth and setup login / sign up provider
 import {
   getAuth,
   signInWithPopup,
@@ -10,6 +11,7 @@ import {
   onAuthStateChanged,
 } from "firebase/auth";
 
+//firebase method to get data
 import {
   getFirestore,
   doc,
@@ -33,8 +35,7 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-// eslint-disable-next-line no-unused-vars
-const firebaseApp = initializeApp(firebaseConfig);
+initializeApp(firebaseConfig);
 
 const provider = new GoogleAuthProvider();
 provider.setCustomParameters({
@@ -47,6 +48,7 @@ export const signInWithGooglePopup = () => signInWithPopup(auth, provider);
 // config the database firebase and do checklist either true or false
 export const db = getFirestore();
 
+// fetch data from firebase db in collection and will use in context as central data.
 export const addCollectionAndDocuments = async (
   collectionKey,
   objectsToAdd
