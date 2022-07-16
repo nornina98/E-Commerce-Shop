@@ -13,7 +13,12 @@ import { SignOutUser } from "../../../utils/firebase-utils";
 import { ReactComponent as CrownLogo } from "../../../assets/crown.svg";
 
 // import styling from scss within same directory
-import "./navigation-styles.scss";
+import {
+  NavigationContainer,
+  NavLink,
+  NavLinks,
+  LogoContainer,
+} from "./navigation-styles";
 
 const Navigation = () => {
   const { currentUser } = useContext(UserContext);
@@ -22,27 +27,23 @@ const Navigation = () => {
   // use fragment instead of wrapping div as cointaner
   return (
     <Fragment>
-      <div className="navigation">
-        <Link className="logo-container" to="/">
+      <NavigationContainer>
+        <LogoContainer to="/">
           <CrownLogo className="logo " />
-        </Link>
-        <div className="nav-links-container">
-          <Link className="nav-link" to="/shop">
-            Shop
-          </Link>
+        </LogoContainer>
+        <NavLinks>
+          <NavLink to="/shop">Shop</NavLink>
           {currentUser ? (
             <span className="nav-link" onClick={SignOutUser}>
               Sign Out
             </span>
           ) : (
-            <Link className="nav-link" to="/auth">
-              Sign In
-            </Link>
+            <NavLink to="/auth">Sign In</NavLink>
           )}
           <CartIcon />
-        </div>
+        </NavLinks>
         {isCartOpen && <CartDropdown />}
-      </div>
+      </NavigationContainer>
       <Outlet />
     </Fragment>
   );
