@@ -15,7 +15,6 @@ export const CategoriesProvider = ({ children }) => {
     const getCategoriesMap = async () => {
       const categoryMap = await getCategoriesAndDocuments("Categories");
       // getData from firebase collection as Categories product --> refer files utils as helper within method.
-      console.log(categoryMap);
       setCategoriesMap(categoryMap);
     };
     getCategoriesMap();

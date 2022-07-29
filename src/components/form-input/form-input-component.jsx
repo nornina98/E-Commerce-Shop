@@ -1,26 +1,19 @@
-import "./form-input-style.scss";
+import { FormInputLabel, Input, Group } from "./form-input-style";
 
 const FormInput = ({ label, ...otherProps }) => {
   return (
-    <div className="group">
-      <input className="form-input" {...otherProps} />
+    <Group>
+      <Input {...otherProps} />
       {label && (
-        <span className="">
-          <label
-            className={`${
-              otherProps.value.length ? "shrink" : " "
-            } form-input-label`}
-          >
-            {label}
-          </label>
-        </span>
+        <FormInputLabel shrink={otherProps.value.length}>
+          {label}
+        </FormInputLabel>
       )}
-    </div>
+    </Group>
   );
 };
 
 export default FormInput;
-
 /* className={`${otherProps.value.length ? "shrink" : " "}`}
 if something have type in input which length > 0 or it true then append classname "shrink" otherwise it empty string -> "";
 */
