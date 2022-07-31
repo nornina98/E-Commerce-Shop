@@ -1,10 +1,10 @@
 import { Outlet } from "react-router-dom";
 import { Fragment, useContext } from "react";
+import { useSelector } from "react-redux";
 
 import CartIcon from "../../cart-icon/cart-icon-component";
 import CartDropdown from "../../cart-dropdown/cart-dropdown-component";
 
-import { UserContext } from "../../../contexts/context-user";
 import { CartContext } from "../../../contexts/context-cart";
 
 import { SignOutUser } from "../../../utils/firebase-utils";
@@ -21,7 +21,7 @@ import {
 } from "./navigation-styles.jsx";
 
 const Navigation = () => {
-  const { currentUser } = useContext(UserContext);
+  const currentUser = useSelector((state) => state.user.currentUser);
   const { isCartOpen } = useContext(CartContext);
 
   // use fragment instead of wrapping div as cointaner
