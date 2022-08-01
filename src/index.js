@@ -5,8 +5,7 @@ import { BrowserRouter } from "react-router-dom";
 import { CategoriesProvider } from "./contexts/categories-context";
 import { CartProvider } from "./contexts/context-cart";
 
-import { Provider } from "react-redux";
-import { store } from "./store/store";
+import { UserProvider } from "./contexts/context-user";
 
 import "./index.scss";
 
@@ -14,13 +13,13 @@ const rootElement = document.getElementById("root");
 const root = ReactDOMClient.createRoot(rootElement);
 
 root.render(
-  <Provider store={store}>
-    <BrowserRouter>
+  <BrowserRouter>
+    <UserProvider>
       <CategoriesProvider>
         <CartProvider>
           <App />
         </CartProvider>
       </CategoriesProvider>
-    </BrowserRouter>
-  </Provider>
+    </UserProvider>
+  </BrowserRouter>
 );

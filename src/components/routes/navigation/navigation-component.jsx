@@ -1,16 +1,16 @@
 import { Outlet } from "react-router-dom";
 import { Fragment, useContext } from "react";
-import { useSelector } from "react-redux";
 
 import CartIcon from "../../cart-icon/cart-icon-component";
 import CartDropdown from "../../cart-dropdown/cart-dropdown-component";
 
 import { CartContext } from "../../../contexts/context-cart";
+import { UserContext } from "../../../contexts/context-user";
 
 import { SignOutUser } from "../../../utils/firebase-utils";
 
 // Import CrownLogo in Assets
-import { ReactComponent as CrownLogo } from "../../../assets/crown.svg";
+import { ReactComponent as CrwnLogo } from "../../../assets/crown.svg";
 
 // import styling within same directory
 import {
@@ -21,24 +21,24 @@ import {
 } from "./navigation-styles.jsx";
 
 const Navigation = () => {
-  const currentUser = useSelector((state) => state.user.currentUser);
+  const { currentUser } = useContext(UserContext);
   const { isCartOpen } = useContext(CartContext);
 
-  // use fragment instead of wrapping div as cointaner
   return (
     <Fragment>
       <NavigationContainer>
         <LogoContainer to="/">
-          <CrownLogo className="logo " />
+          <CrwnLogo className="logo" />
         </LogoContainer>
         <NavLinks>
-          <NavLink to="/shop">Shop</NavLink>
+          <NavLink to="/shop">SHOP</NavLink>
+
           {currentUser ? (
             <NavLink as="span" onClick={SignOutUser}>
-              Sign Out
+              SIGN OUT
             </NavLink>
           ) : (
-            <NavLink to="/auth">Sign In</NavLink>
+            <NavLink to="/auth">SIGN IN</NavLink>
           )}
           <CartIcon />
         </NavLinks>

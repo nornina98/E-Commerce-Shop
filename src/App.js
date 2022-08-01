@@ -5,31 +5,7 @@ import Authentication from "./components/routes/authentication/authentication-co
 import Shop from "./components/routes/shop/shop-component.jsx";
 import Checkout from "./components/routes/checkout/checkout-component.jsx";
 
-import { useEffect } from "react";
-import { useDispatch } from "react-redux/es/exports.js";
-
-import {
-  onAuthStateChangedListener,
-  createUserDocumentFromAuth,
-} from "./utils/firebase-utils";
-
-import { setCurrentUser } from "./store/user/user-action.js";
-
 const App = () => {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    const unsubscribe = onAuthStateChangedListener((user) => {
-      if (user) {
-        createUserDocumentFromAuth(user);
-      }
-      dispatch(setCurrentUser(user));
-    });
-
-    return unsubscribe;
-    // eslint-disable-next-line
-  }, []);
-
   return (
     //Routes URL that passing component and it's nested!
     <Routes>
