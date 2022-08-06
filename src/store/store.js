@@ -6,9 +6,9 @@ import { rootReducer } from "./root-reducer";
 
 // root reducer
 
-const middleWare = [logger];
+const middleWares = [logger];
 
-const composedEnhancers = compose(applyMiddleware(...middleWare));
+const composedEnhancers = compose(applyMiddleware(...middleWares));
 
 // accept three parameter
 export const store = createStore(rootReducer, undefined, composedEnhancers);
