@@ -3,7 +3,6 @@ import App from "./App";
 import * as ReactDOMClient from "react-dom/client";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
-import { CategoriesProvider } from "./contexts/categories-context";
 import { CartProvider } from "./contexts/context-cart";
 import { store } from "./store/store";
 
@@ -15,11 +14,9 @@ const root = ReactDOMClient.createRoot(rootElement);
 root.render(
   <BrowserRouter>
     <Provider store={store}>
-      <CategoriesProvider>
-        <CartProvider>
-          <App />
-        </CartProvider>
-      </CategoriesProvider>
+      <CartProvider>
+        <App />
+      </CartProvider>
     </Provider>
   </BrowserRouter>
 );

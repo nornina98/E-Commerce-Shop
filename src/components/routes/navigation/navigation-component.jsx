@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
 import { Fragment, useContext } from "react";
-import { useSelector } from "react-redux/es/hooks/useSelector";
+import { useSelector } from "react-redux";
 import CartIcon from "../../cart-icon/cart-icon-component";
 import CartDropdown from "../../cart-dropdown/cart-dropdown-component";
 import { CartContext } from "../../../contexts/context-cart";

@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useDispatch } from "react-redux/es/exports.js";
+import { useDispatch } from "react-redux";
 import { Routes, Route } from "react-router-dom";
 import Home from "./components/routes/home/home-component.jsx";
 import Navigation from "./components/routes/navigation/navigation-component.jsx";
@@ -23,7 +23,8 @@ const App = () => {
     });
 
     return unsubscribe;
-  }, [dispatch]);
+    // eslint-disable-next-line
+  }, []);
 
   return (
     //Routes URL that passing component and it's nested!
