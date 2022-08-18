@@ -13,7 +13,6 @@ const Shop = () => {
   useEffect(() => {
     const getCategoriesMap = async () => {
       const categoriesArray = await getCategoriesAndDocuments("Categories");
-      console.log(categoriesArray);
       // getData from firebase collection as Categories product --> refer files utils as helper within method.
       dispatch(setCategories(categoriesArray));
     };
