@@ -9,22 +9,15 @@ import Checkout from "./components/routes/checkout/checkout-component.jsx";
 import {
   onAuthStateChangedListener,
   createUserDocumentFromAuth,
+  getCurrentUser,
 } from "./utils/firebase-utils";
-import { setCurrentUser } from "./store/user/user-action.js";
+import { checkUserSession } from "./store/user/user-action.js";
 
 const App = () => {
   const dispatch = useDispatch();
   useEffect(() => {
-    const unsubscribe = onAuthStateChangedListener((user) => {
-      if (user) {
-        createUserDocumentFromAuth(user);
-      }
-      dispatch(setCurrentUser(user));
-    });
-
-    return unsubscribe;
-    // eslint-disable-next-line
-  }, []);
+    dispatch(checkUserSession());
+  }, [dispatch]);
 
   return (
     //Routes URL that passing component and it's nested!
