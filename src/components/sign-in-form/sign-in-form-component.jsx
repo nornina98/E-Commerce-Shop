@@ -5,11 +5,9 @@ import FormInput from "../form-input/form-input-component";
 import Button, { BUTTON_TYPE_CLASSES } from "../button/button-component";
 
 import {
-  signInWithGooglePopup,
-  signInAuthWithEmailAndPassword,
-} from "../../utils/firebase-utils";
-
-import { googleSignInStart } from "../../store/user/user-action";
+  googleSignInStart,
+  emailSignInStart,
+} from "../../store/user/user-action";
 
 import "./sign-in-form-styles.scss";
 
@@ -39,7 +37,7 @@ const SignInForm = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      await signInAuthWithEmailAndPassword(email, password);
+      dispatch(emailSignInStart(email, password));
       //     setCurrentUser({ user });
       resetFormFields();
     } catch (error) {
