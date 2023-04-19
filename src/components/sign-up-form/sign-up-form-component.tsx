@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useState, FormEvent, ChangeEvent } from "react";
+import { AuthError, AuthErrorCodes } from "firebase/auth";
 import { useDispatch } from "react-redux";
 import FormInput from "../form-input/form-input-component";
 import Button from "../button/button-component";
 import { signUpStart } from "../../store/user/user-action";
-
-import "./sign-up-form-styles.tsx";
+import { SignUpContainer } from "./sign-up-form-styles";
 
 // set as default value which is create empty object for initial data
 const defaultFormFields = {
@@ -26,7 +26,7 @@ const SignUpForm = () => {
     setFormField(defaultFormFields);
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     if (password !== confirmPassword) {
@@ -38,7 +38,7 @@ const SignUpForm = () => {
       dispatch(signUpStart(email, password, displayName));
       resetFormFields();
     } catch (error) {
-      if (error.code === "auth/email-already-in-use") {
+      if ((error as AuthError).code === AuthErrorCodes.EMAIL_EXISTS) {
         alert("Cannot create user, email already in use");
       } else {
         console.log("user creation encountered an error", error);
@@ -47,7 +47,7 @@ const SignUpForm = () => {
   };
 
   // function to trigger changing FormInput
-  const changeHandler = (event) => {
+  const changeHandler = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
 
     // set formfield into new value which target name properties in form which default object is "" and FormInput new value by triggering onChange function.
@@ -55,7 +55,7 @@ const SignUpForm = () => {
   };
 
   return (
-    <div className="sign-up-cointainer">
+    <SignUpContainer>
       <h2>Don't have an account?</h2>
       <span>Sign up with your email and password</span>
       <form onSubmit={handleSubmit}>
@@ -94,11 +94,9 @@ const SignUpForm = () => {
           name="confirmPassword"
           value={confirmPassword}
         />
-        <Button buttonType="google" type="submit">
-          Sign Up
-        </Button>
+        <Button type="submit">Sign Up</Button>
       </form>
-    </div>
+    </SignUpContainer>
   );
 };
 

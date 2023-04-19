@@ -9,6 +9,8 @@ import {
   emailSignInStart,
 } from "../../store/user/user-action";
 
+import { SignInContainer, ButtonsContainer } from "./sign-in-form-styles";
+
 import "./sign-in-form-styles";
 
 // set as default value which is create empty object for initial data
@@ -54,7 +56,7 @@ const SignInForm = () => {
   };
 
   return (
-    <div className="sign-up-cointainer">
+    <SignInContainer>
       <h2>Sign In To Access</h2>
       <span>Sign in your account with email or Google</span>
       <form onSubmit={handleSubmit}>
@@ -75,7 +77,7 @@ const SignInForm = () => {
           name="password"
           value={password}
         />
-        <div className="buttons-container">
+        <ButtonsContainer>
           <Button type="submit">Sign In</Button>
           <Button
             type="button"
@@ -84,9 +86,9 @@ const SignInForm = () => {
           >
             Google Sign In
           </Button>
-        </div>
+        </ButtonsContainer>
       </form>
-    </div>
+    </SignInContainer>
   );
 };
 
