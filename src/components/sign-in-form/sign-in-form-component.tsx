@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, FormEvent, ChangeEvent } from "react";
 import { useDispatch } from "react-redux";
 
 import FormInput from "../form-input/form-input-component";
@@ -9,7 +9,7 @@ import {
   emailSignInStart,
 } from "../../store/user/user-action";
 
-import "./sign-in-form-styles.scss";
+import "./sign-in-form-styles";
 
 // set as default value which is create empty object for initial data
 const defaultFormFields = {
@@ -21,55 +21,36 @@ const SignInForm = () => {
   const dispatch = useDispatch();
 
   // config formfield and setform by desctructuring base object
-  const [formField, setFormField] = useState(defaultFormFields);
+  const [formField, setFormFields] = useState(defaultFormFields);
   const { email, password } = formField;
 
   // function to handle submit data from form button
 
   const resetFormFields = () => {
-    setFormField(defaultFormFields);
+    setFormFields(defaultFormFields);
   };
 
   const SignInWithGoogle = async () => {
     dispatch(googleSignInStart());
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
     try {
       dispatch(emailSignInStart(email, password));
-      //     setCurrentUser({ user });
       resetFormFields();
     } catch (error) {
-      switch (error.code) {
-        case "auth/wrong-password":
-          alert("auth/wrong-password");
-          break;
-
-        case "auth/user-not-found":
-          alert("Sorry, there is no such user found");
-          break;
-
-        default:
-          console.log(error);
-      }
+      console.log("user sign in failed", error);
     }
   };
 
-  /*
-      if (error.code === "auth/wrong-password") {
-        alert("your password or email is incorrect");
-      } else if (error.code === "auth/user-not-found") {
-        alert("Sorry,there is no such user found");
-      }
-  */
-
   // function to trigger changing FormInput
-  const changeHandler = (event) => {
+  const changeHandler = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
 
     // set formfield into new value which target name properties in form which default object is "" and FormInput new value by triggering onChange function.
-    setFormField({ ...formField, [name]: value });
+    setFormFields({ ...formField, [name]: value });
   };
 
   return (

@@ -4,7 +4,7 @@ import FormInput from "../form-input/form-input-component";
 import Button from "../button/button-component";
 import { signUpStart } from "../../store/user/user-action";
 
-import "./sign-up-form-styles.scss";
+import "./sign-up-form-styles.tsx";
 
 // set as default value which is create empty object for initial data
 const defaultFormFields = {
